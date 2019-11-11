@@ -142,4 +142,16 @@ class InterView {
         println(InterViewCode.bigNumSum("425896556879442311568","104253689514247"))
     }
 
+    // 测试动态规划
+    @Test
+    fun getBestGoldMining(){
+        // 10 人 5矿 [400KG/5人,500KG/5人,200KG/3人,300KG/4人,350KG/3人]
+        var value = InterViewCode.getBestGoldMining(10,5, intArrayOf(5,5,3,4,3), intArrayOf(400,500,200,300,350))
+        println(value)
+        value = InterViewCode.getBestGoldMining2(10,intArrayOf(5,5,3,4,3), intArrayOf(400,500,200,300,350))
+        println(value)
+        value = InterViewCode.getBestGoldMining3(10,intArrayOf(5,5,3,4,3), intArrayOf(400,500,200,300,350))
+        println(value)
+    }
+
 }

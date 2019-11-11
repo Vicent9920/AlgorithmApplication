@@ -383,5 +383,62 @@ object InterViewCode {
 
         return sb.reverse().toString()
     }
+
+    // 动态规划之金矿问题 递归方案
+    // p 工人需求数组
+    // g 金矿储量数组
+    fun getBestGoldMining(w:Int,n:Int,p:IntArray,g:IntArray):Int{
+        if(w== 0 || n == 0)return 0
+        // 当人数无法再进行拆分，即问题边界
+        if(w<p[n-1]){
+            return getBestGoldMining(w,n-1,p,g)
+        }
+        // 返回当前两个选择的最优解
+        return Math.max(
+            // 最后一个金矿放弃，即不挖最后一个金矿
+            getBestGoldMining(w,n-1,p,g),
+            // 最后一个金矿挖了
+            getBestGoldMining(w-p[n-1],n-1,p,g)+g[n-1])
+    }
+
+    // 动态规划之金矿问题 造表方案
+    // p 工人需求数组
+    // g 金矿储量数组
+    fun getBestGoldMining2(w:Int,p:IntArray,g:IntArray):Int{
+        // 创建表格
+        val resultTable = Array(g.size+1){
+            IntArray(w+1){
+                0
+            }
+        }
+        // 填充表格
+        for (i in 1.. g.size){
+            for (j in 1..w){
+                if(j<p[i-1]){
+                    resultTable[i][j] = resultTable[i-1][j]
+                }else{
+                    resultTable[i][j] = Math.max(resultTable[i-1][j],resultTable[i-1][j-p[i-1]]+g[i-1])
+                }
+            }
+
+        }
+        return resultTable[g.size][w]
+    }
+
+    // 动态规划之金矿问题 数组方案
+    // p 工人需求数组
+    // g 金矿储量数组
+    fun getBestGoldMining3(w:Int,p:IntArray,g:IntArray):Int{
+        // 创建数组
+        val result = IntArray(w+1)
+        for (i in 1..g.size){
+            for (j in w downTo 1){
+                if(j >= p[i-1]){
+                    result[j] = Math.max(result[j],result[j-p[i-1]]+g[i-1])
+                }
+            }
+        }
+        return result[w]
+    }
 }
 
