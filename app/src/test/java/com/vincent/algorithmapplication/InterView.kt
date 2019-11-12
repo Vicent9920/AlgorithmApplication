@@ -154,4 +154,11 @@ class InterView {
         println(value)
     }
 
+    // 寻找整数
+    @Test
+    fun findLostNum(){
+        var result = InterViewCode.findLostNum(intArrayOf(4,1,2,2,7,1,4,3))
+        println(result.contentToString())
+    }
+
 }

@@ -440,5 +440,32 @@ object InterViewCode {
         }
         return result[w]
     }
+
+    // 寻找整数
+    fun findLostNum(array: IntArray):IntArray{
+        val result = IntArray(2){
+            return@IntArray 0
+        }
+        var value = 0
+        // 整体异或运算
+        for (i in array){
+            value = value xor i
+        }
+        // 参数有误
+        if(value == 0)return result
+        var separator = 1
+        while (0 == separator and value){
+            separator = separator.shl(1)
+        }
+        // 分治法
+        for (i in array){
+            if(0 == i and separator){
+                result[0] = result[0] xor i
+            }else{
+                result[1] = result[1] xor i
+            }
+        }
+        return result
+    }
 }
 
